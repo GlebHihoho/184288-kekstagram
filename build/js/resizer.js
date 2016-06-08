@@ -114,11 +114,38 @@
 
       // Отрисовка прямоугольника, обозначающего область изображения после
       // кадрирования. Координаты задаются от центра.
+      this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+      this._ctx.fillRect(
+          -this._container.width / 2, -this._container.height / 2,
+          this._container.width, (this._container.height -
+          this._resizeConstraint.side) / 2 - this._ctx.lineWidth);
+      this._ctx.fillRect(
+          -this._container.width / 2, -this._resizeConstraint.side /
+          2 - this._ctx.lineWidth, (this._container.width -
+          this._resizeConstraint.side) / 2 - this._ctx.lineWidth,
+          this._resizeConstraint.side + this._ctx.lineWidth / 2);
+      this._ctx.fillRect(
+          -this._container.width / 2, (this._resizeConstraint.side / 2) -
+          (this._ctx.lineWidth / 2), this._container.width, this._container.height);
+      this._ctx.fillRect(
+          this._resizeConstraint.side / 2 - this._ctx.lineWidth / 2,
+          -this._resizeConstraint.side / 2 - this._ctx.lineWidth,
+          this._resizeConstraint.side, this._resizeConstraint.side +
+          this._ctx.lineWidth / 2);
+
       this._ctx.strokeRect(
           (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
           (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
           this._resizeConstraint.side - this._ctx.lineWidth / 2,
           this._resizeConstraint.side - this._ctx.lineWidth / 2);
+
+      // Выводим надпись с размерами изображений
+      this._ctx.fillStyle = 'white';
+      this._ctx.textBaseline = 'hanging';
+      this._ctx.textAlign = 'center';
+      this._ctx.font = '20px Tahoma';
+      this._ctx.fillText(this._image.naturalWidth + ' x ' + this._image.naturalHeight,
+          0, -(this._resizeConstraint.side + 10 * this._ctx.lineWidth) / 2 );
 
       // Восстановление состояния канваса, которое было до вызова ctx.save
       // и последующего изменения системы координат. Нужно для того, чтобы
