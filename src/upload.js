@@ -256,29 +256,26 @@
 
   cleanupResizer();
   updateBackground();
-})();
 
-var leftBtn = document.querySelector('#resize-x');
-var topBtn = document.querySelector('#resize-y');
-var sideBtn = document.querySelector('#resize-size');
-var submitBtn = document.querySelector('#resize-rwd');
+  var leftBtn = document.querySelector('#resize-x');
+  var topBtn = document.querySelector('#resize-y');
+  var sideBtn = document.querySelector('#resize-size');
+  var submitBtn = document.querySelector('#resize-fwd');
 
-leftBtn.min = 0;
-topBtn.min = 0;
-sideBtn.min = 0;
+  leftBtn.min = 0;
+  topBtn.min = 0;
+  sideBtn.min = 0;
 
   submitBtn.getAttribute('disabled', 'disabled');
 
-var sumLeftSide = function(a, b, w) {
-  (a + b) < w;
-};
+  var sum = function(a, b, c) {
+    return (a + b) < c;
+  };
 
-var sumTopSide = function(d, b, h) {
-  (d + b) < h;
-};
-
-if ( sumLeftSide(leftBtn, sideBtn, currentResizer._image.naturalWidth) &&
-  sumTopSide(topBtn, sideBtn, currentResizer._image.naturalHeight)
-) {
-  submitBtn.removeAttribute('disabled');
-}
+  if (
+    sum(leftBtn, sideBtn, currentResizer._image.naturalWidth) &&
+    sum(topBtn, sideBtn, currentResizer._image.naturalHeight)
+  ) {
+    submitBtn.removeAttribute('disabled');
+  }
+})();
