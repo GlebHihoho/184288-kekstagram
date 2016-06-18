@@ -84,7 +84,7 @@
     topBtn.min = 0;
     sideBtn.min = 0;
 
-    submitBtn.getAttribute('disabled', 'disabled');
+    submitBtn.setAttribute('disabled', 'disabled');
 
     if (
       sum(leftBtn, sideBtn, currentResizer._image.naturalWidth) &&
@@ -92,7 +92,19 @@
     ) {
       submitBtn.removeAttribute('disabled');
     }
+
+    return true;
   }
+
+  var leftBtn = document.querySelector('#resize-x');
+  var topBtn = document.querySelector('#resize-y');
+  var sideBtn = document.querySelector('#resize-size');
+
+  leftBtn.onchange = resizeFormIsValid;
+
+  topBtn.onchange = resizeFormIsValid;
+
+  sideBtn.onchange = resizeFormIsValid;
 
   /**
    * Форма загрузки изображения.
@@ -275,4 +287,5 @@
 
   cleanupResizer();
   updateBackground();
+  resizeFormIsValid();
 })();
