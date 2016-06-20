@@ -145,8 +145,7 @@
       this._ctx.textAlign = 'center';
       this._ctx.font = '20px Tahoma';
       this._ctx.fillText(this._image.naturalWidth + ' x ' + this._image.naturalHeight,
-          0, -(this._resizeConstraint.side +
-          10 * this._ctx.lineWidth) / 2 );
+          0, -(this._resizeConstraint.side + 10 * this._ctx.lineWidth) / 2 );
 
       // Восстановление состояния канваса, которое было до вызова ctx.save
       // и последующего изменения системы координат. Нужно для того, чтобы
