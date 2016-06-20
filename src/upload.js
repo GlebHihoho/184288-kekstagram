@@ -71,41 +71,42 @@
    * Проверяет, валидны ли данные, в форме кадрирования.
    * @return {boolean}
    */
+
+  var leftBtn = document.querySelector('#resize-x');
+  var topBtn = document.querySelector('#resize-y');
+  var sideBtn = document.querySelector('#resize-size');
+  var submitBtn = document.querySelector('#resize-fwd');
+
+  leftBtn.min = 0;
+  topBtn.min = 0;
+  sideBtn.min = 0;
+
   function resizeFormIsValid() {
-    var leftBtn = document.querySelector('#resize-x');
-    var topBtn = document.querySelector('#resize-y');
-    var sideBtn = document.querySelector('#resize-size');
-    var submitBtn = document.querySelector('#resize-fwd');
     var sum = function(a, b, c) {
       return (a + b) < c;
     };
-
-    leftBtn.min = 0;
-    topBtn.min = 0;
-    sideBtn.min = 0;
-
-    submitBtn.setAttribute('disabled', 'disabled');
 
     if (
       sum(parseInt(leftBtn.value, 10), parseInt(sideBtn.value, 10), currentResizer._image.naturalWidth) &&
       sum(parseInt(topBtn.value, 10), parseInt(sideBtn.value, 10), currentResizer._image.naturalHeight)
     ) {
-      submitBtn.removeAttribute('disabled');
+      return true;
+    } else {
+      return false;
     }
-
-    return true;
   }
 
-  var leftBtn = document.querySelector('#resize-x');
-  var topBtn = document.querySelector('#resize-y');
-  var sideBtn = document.querySelector('#resize-size');
+  function toggleButtonState() {
+    if (resizeFormIsValid) {
+      submitBtn.removeAttribute('disabled');
+    } else {
+      submitBtn.setAttribute('disabled', 'disabled');
+    }
+  }
 
-  leftBtn.oninput = resizeFormIsValid;
-
-  topBtn.oninput = resizeFormIsValid;
-
-  sideBtn.oninput = resizeFormIsValid;
-
+  leftBtn.oninput = toggleButtonState;
+  topBtn.oninput = toggleButtonState;
+  sideBtn.oninput = toggleButtonState;
 
   /**
    * Форма загрузки изображения.
