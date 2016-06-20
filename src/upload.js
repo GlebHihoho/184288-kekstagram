@@ -84,15 +84,28 @@
     topBtn.min = 0;
     sideBtn.min = 0;
 
-    submitBtn.getAttribute('disabled', 'disabled');
+    submitBtn.setAttribute('disabled', 'disabled');
 
     if (
-      sum(leftBtn, sideBtn, currentResizer._image.naturalWidth) &&
-      sum(topBtn, sideBtn, currentResizer._image.naturalHeight)
+      sum(parseInt(leftBtn.value, 10), parseInt(sideBtn.value, 10), currentResizer._image.naturalWidth) &&
+      sum(parseInt(topBtn.value, 10), parseInt(sideBtn.value, 10), currentResizer._image.naturalHeight)
     ) {
       submitBtn.removeAttribute('disabled');
     }
+
+    return true;
   }
+
+  var leftBtn = document.querySelector('#resize-x');
+  var topBtn = document.querySelector('#resize-y');
+  var sideBtn = document.querySelector('#resize-size');
+
+  leftBtn.oninput = resizeFormIsValid;
+
+  topBtn.oninput = resizeFormIsValid;
+
+  sideBtn.oninput = resizeFormIsValid;
+
 
   /**
    * Форма загрузки изображения.
