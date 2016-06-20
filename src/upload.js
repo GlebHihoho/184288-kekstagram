@@ -87,8 +87,8 @@
     submitBtn.setAttribute('disabled', 'disabled');
 
     if (
-      sum(leftBtn, sideBtn, currentResizer._image.naturalWidth) &&
-      sum(topBtn, sideBtn, currentResizer._image.naturalHeight)
+      sum(parseInt(leftBtn.value, 10), parseInt(sideBtn.value, 10), currentResizer._image.naturalWidth) &&
+      sum(parseInt(topBtn.value, 10), parseInt(sideBtn.value, 10), currentResizer._image.naturalHeight)
     ) {
       submitBtn.removeAttribute('disabled');
     }
@@ -100,11 +100,12 @@
   var topBtn = document.querySelector('#resize-y');
   var sideBtn = document.querySelector('#resize-size');
 
-  leftBtn.onchange = resizeFormIsValid;
+  leftBtn.oninput = resizeFormIsValid;
 
-  topBtn.onchange = resizeFormIsValid;
+  topBtn.oninput = resizeFormIsValid;
 
-  sideBtn.onchange = resizeFormIsValid;
+  sideBtn.oninput = resizeFormIsValid;
+
 
   /**
    * Форма загрузки изображения.
@@ -287,5 +288,4 @@
 
   cleanupResizer();
   updateBackground();
-  resizeFormIsValid();
 })();
