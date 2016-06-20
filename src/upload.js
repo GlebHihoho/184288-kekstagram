@@ -97,7 +97,7 @@
   }
 
   function toggleButtonState() {
-    if (resizeFormIsValid) {
+    if (resizeFormIsValid()) {
       submitBtn.removeAttribute('disabled');
     } else {
       submitBtn.setAttribute('disabled', 'disabled');
