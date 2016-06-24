@@ -104,13 +104,16 @@
     }
   }
 
-<<<<<<< HEAD
-=======
   leftBtn.oninput = toggleButtonState;
   topBtn.oninput = toggleButtonState;
   sideBtn.oninput = toggleButtonState;
 
->>>>>>> refs/remotes/origin/master
+  var browserCookies = require('browser-cookies');
+
+  var filterNone = document.getElementById('upload-filter-none');
+  var filterChrome = document.getElementById('upload-filter-chrome');
+  var filterSepia = document.getElementById('upload-filter-sepia');
+  
   /**
    * Форма загрузки изображения.
    * @type {HTMLFormElement}
