@@ -106,7 +106,6 @@
 
   sideBtn.oninput = resizeFormIsValid;
 
-
   /**
    * Форма загрузки изображения.
    * @type {HTMLFormElement}
