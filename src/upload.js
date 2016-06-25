@@ -113,7 +113,47 @@
   var filterNone = document.getElementById('upload-filter-none');
   var filterChrome = document.getElementById('upload-filter-chrome');
   var filterSepia = document.getElementById('upload-filter-sepia');
-  
+  var submitBTN = document.getElementById('filter-fwd');
+
+  submitBTN.onclick = function() {
+    switch(true) {
+      case filterNone.checked:
+        browserCookies.set('none', 'checked', '{expires:' + lifetimeCookies() + '}');
+        browserCookies.erase('chrome');
+        browserCookies.erase('sepia');
+        break;
+      case filterChrome.checked:
+        browserCookies.set('chrome', 'checked', '{expires:' + lifetimeCookies() + '}');
+        browserCookies.erase('none');
+        browserCookies.erase('sepia');
+        break;
+      case filterSepia.checked:
+        browserCookies.set('sepia', 'checked', '{expires:' + lifetimeCookies() + '}');
+        browserCookies.erase('chrome');
+        browserCookies.erase('none');
+        break;
+    }
+  };
+
+  function lifetimeCookies() {
+    var dateNow = Date.now();
+    var birthday = new Date();
+    var amountDay = dateNow - birthday.setMonth(0, 28);
+    return amountDay / 24 / 60 / 60 / 1000;
+  }
+
+  function uploadCookie() {
+    if ( browserCookies.get('none') ) {
+      filterNone.setAttribute('checked', 'checked');
+    } else if ( browserCookies.get('chrome') ) {
+      filterChrome.setAttribute('checked', 'checked');
+    } else {
+      filterSepia.setAttribute('checked', 'checked');
+    }
+  }
+
+  uploadCookie();
+
   /**
    * Форма загрузки изображения.
    * @type {HTMLFormElement}
