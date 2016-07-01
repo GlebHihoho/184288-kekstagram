@@ -1,3 +1,4 @@
+/* global pictures */
 'use strict';
 
 var filters = document.querySelector('.filters');
@@ -19,7 +20,21 @@ var getPictureElement = function(data, container) {
   container.appendChild(element);
 
   var backgroundImage = new Image();
+
   backgroundImage.src = data.url;
+  element.appendChild(backgroundImage);
+
+  backgroundImage.onload = function() {
+    backgroundImage.setAttribute('width', '182');
+    backgroundImage.setAttribute('height', '182');
+  };
+
+  backgroundImage.onerror = function() {
+    backgroundImage.classList.add('picture-load-failure');
+  };
+
+  filters.classList.remove('hidden');
+
   return element;
 };
 
