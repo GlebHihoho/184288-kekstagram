@@ -45,28 +45,28 @@ var getPictureElement = function(data, container) {
 var getPictures = function(callback) {
   var xhr = new XMLHttpRequest();
 
-  /** @param {ProgressEvent} */
+  xhr.open('GET', '//o0.github.io/assets/json/pictures.json', true);
+
+  xhr.timeout = 2000;
 
   xhr.onload = function(evt) {
     var loadedData = JSON.parse(evt.target.response);
     callback(loadedData);
     picturesBlock.classList.remove('pictures-loading');
   };
-  xhr.open('GET', '//o0.github.io/assets/json/pictures.json', true);
-  xhr.send();
 
-  // xhr.timeout = 500;
-  // xhr.ontimeout = function() {
-  //
-  //   picturesBlock.classList.add('pictures-failure');
-  // };
-
+  xhr.ontimeout = function() {
+    picturesBlock.classList.add('pictures-failure');
+    xhr.abort();
+  };
 
   xhr.onerror = function() {
     picturesBlock.classList.add('pictures-failure');
   };
 
+  xhr.send();
 };
+
 
 /** @param {Array.<Object>} pictures */
 var renderPictures = function(picturess) {
@@ -79,3 +79,42 @@ getPictures(function(loadPictures) {
   pictures = loadPictures;
   renderPictures(pictures);
 });
+
+// Работаем с фильтрами
+
+var filterPopular = document.getElementById('filter-popular');
+var filterNew = document.getElementById('filter-new');
+var filterDiscussed = document.getElementById('filter-discussed');
+
+function compareComments(valA, valB) {
+  if (valA.comments < valB.comments) {
+    return 1;
+  } else if (valA.comments === valB.comments) {
+    return 0;
+  } else {
+    return -1;
+  }
+}
+
+filterPopular.onclick = function() {
+  console.log(pictures);
+
+};
+
+filterNew.onclick = function() {
+  console.log('new');
+};
+
+filterDiscussed.onclick = function() {
+  var picture = picturesBlock.querySelectorAll('.picture');
+  pictures.sort(compareComments);
+  pictures.removeChild(picture[0]);
+  // for (var i = 0; i < pictures.length; i++) {
+  //   pictures.removeChild(picture[i]);
+  //   console.log(pictures.length);
+  // }
+  console.log(pictures.length);
+  console.log(picture);
+  console.log(pictures);
+  // return pictures;
+};
